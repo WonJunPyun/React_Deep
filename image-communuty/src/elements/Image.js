@@ -1,52 +1,60 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const{shape, src, size} = props;
+    const {shape, src, size} = props;
 
-    const styles ={
+    const styles = {
         src: src,
         size: size,
     }
 
     if(shape === "circle"){
-        return(
+        return (
             <ImageCircle {...styles}></ImageCircle>
         )
     }
 
     if(shape === "rectangle"){
-        return(
+        return (
             <AspectOutter>
-                <AsepectInner {...styles}></AsepectInner>
+                <AspectInner {...styles}></AspectInner>
             </AspectOutter>
-        );
+        )
     }
 
-    return(
+    return (
         <React.Fragment>
+            <ImageDefault {...styles}></ImageDefault>
         </React.Fragment>
-    );
+    )
 }
 
 Image.defaultProps = {
-    shape: "circle",
-    src: "https://dszw1qtcnsa5e.cloudfront.net/community/20201027/32e29b2d-7be4-46a9-9de3-ed707d8598f5/c67537a607e37016cd65de01fb4bf437.jpg",
-    size: 36,
-}
+  shape: "circle",
+  src: "https://dszw1qtcnsa5e.cloudfront.net/community/20201027/32e29b2d-7be4-46a9-9de3-ed707d8598f5/c67537a607e37016cd65de01fb4bf437.jpg",
+  size: 36,
+};
+
+const ImageDefault = styled.div`
+  --size: ${(props) => props.size}px;
+  width: var(--size);
+  height: var(--size);
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+`;
 
 const AspectOutter = styled.div`
     width: 100%;
     min-width: 250px;
 `;
 
-const AsepectInner = styled.div`
+const AspectInner = styled.div`
     position: relative;
     padding-top: 75%;
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
-
 `;
 
 const ImageCircle = styled.div`
